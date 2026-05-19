@@ -224,7 +224,10 @@ section.visible { opacity: 1; transform: none; }
 
 /* ── SKILLS ────────────────────────────────── */
 .skills-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem;
+  display: flex; flex-wrap: nowrap; gap: 1.2rem; align-items: start;
+}
+.skills-grid > div {
+  flex: 1; min-width: 0;
 }
 .skill-group-title {
   font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
