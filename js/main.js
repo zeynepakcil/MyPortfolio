@@ -31,10 +31,16 @@
   });
 
   // ── Scroll reveal ─────────────────────────────────────────
+  // Use threshold:0 so sections reveal even when mostly off-screen (fixes file:// local preview)
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.08 });
+  }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('section').forEach(s => revealObserver.observe(s));
+
+  // Fallback: if sections still not visible after 300ms, force them all visible
+  setTimeout(() => {
+    document.querySelectorAll('section').forEach(s => s.classList.add('visible'));
+  }, 300);
 
   // ── Active nav link ───────────────────────────────────────
   const navLinks = document.querySelectorAll('.nav-links a');
