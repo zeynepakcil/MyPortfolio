@@ -234,7 +234,10 @@ section.visible { opacity: 1; transform: none; }
 
 /* ── CONTACT ───────────────────────────────── */
 .contact-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;
+  display: flex; flex-wrap: nowrap; gap: 1rem;
+}
+.contact-card {
+  flex: 1;
 }
 .contact-card {
   background: var(--surface); border: 0.5px solid var(--border);
