@@ -13,29 +13,29 @@ skills:
       - "SystemVerilog"
       - "Verilog"
       - "FPGA"
-      - "Vivado / Vitis"
+      - "Vivado"
       - "Verilator"
-      - "ModelSim"
 
   - group: "Programming"
     tag_style: "brown"
     items:
-      - "C / C++"
+      - "C"
+      - "C++"
       - "Python"
       - "MATLAB"
-      - "Bash / Shell"
+      - "Java"
 
   - group: "Frameworks & Tools"
     tag_style: "green"
     items:
       - "PyTorch"
       - "NumPy"
-      - "Git / GitHub"
+      - "Git"
       - "Linux"
-      - "Make / CMake"
 
   - group: "Languages"
     tag_style: "blue"
     items:
       - "English (Fluent)"
       - "Turkish (Native)"
+      - "German (Basic)"

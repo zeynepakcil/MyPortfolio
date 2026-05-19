@@ -106,6 +106,8 @@ function renderEducation(education) {
 }
 
 function renderResearch(interests) {
+  if (!interests?.length) return '';
+
   return interests.map(r => `
       <div class="interest-card">
         <div class="interest-icon">${e(r.icon)}</div>
@@ -166,42 +168,42 @@ function renderSkills(skills) {
       </div>`).join('\n');
 }
 
-// function renderPublications(publications) {
-//   if (!publications?.length) return '';
-// 
-//   const items = publications.map(p => {
-//     const authors = (p.authors ?? []).map(a => {
-//       const bold = a.startsWith('**') && a.endsWith('**');
-//       return bold ? `<strong>${e(a.slice(2,-2))}</strong>` : e(a);
-//     }).join(', ');
-// 
-//     const links = p.links?.length
-//       ? `<div class="exp-tags">${p.links.map(l =>
-//           `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`
-//         ).join(' ')}</div>` : '';
-// 
-//     const note = p.note ? `<span class="tag green">${e(p.note)}</span> ` : '';
-// 
-//     return `
-//       <div class="exp-item">
-//         <p class="exp-period">${e(p.year)}</p>
-//         <div class="exp-body">
-//           <p class="exp-role">${e(p.title)}</p>
-//           <p class="exp-org">${e(p.venue)}${p.venue_short ? ' &nbsp;·&nbsp; ' + e(p.venue_short) : ''}</p>
-//           <p class="exp-desc" style="font-size:13px;">${authors}</p>
-//           ${note}${links}
-//         </div>
-//       </div>`;
-//   }).join('\n');
-// 
-//   return `
-//   <section id="publications">
-//     <p class="section-label">Publications</p>
-//     <div class="exp-list">
-//       ${items}
-//     </div>
-//   </section>`;
-// }
+function renderPublications(publications) {
+  if (!publications?.length) return '';
+
+  const items = publications.map(p => {
+    const authors = (p.authors ?? []).map(a => {
+      const bold = a.startsWith('**') && a.endsWith('**');
+      return bold ? `<strong>${e(a.slice(2,-2))}</strong>` : e(a);
+    }).join(', ');
+
+    const links = p.links?.length
+      ? `<div class="exp-tags">${p.links.map(l =>
+          `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`
+        ).join(' ')}</div>` : '';
+
+    const note = p.note ? `<span class="tag green">${e(p.note)}</span> ` : '';
+
+    return `
+      <div class="exp-item">
+        <p class="exp-period">${e(p.year)}</p>
+        <div class="exp-body">
+          <p class="exp-role">${e(p.title)}</p>
+          <p class="exp-org">${e(p.venue)}${p.venue_short ? ' &nbsp;·&nbsp; ' + e(p.venue_short) : ''}</p>
+          <p class="exp-desc" style="font-size:13px;">${authors}</p>
+          ${note}${links}
+        </div>
+      </div>`;
+  }).join('\n');
+
+  return `
+  <section id="publications">
+    <p class="section-label">Publications</p>
+    <div class="exp-list">
+      ${items}
+    </div>
+  </section>`;
+}
 
 function renderContactCards(links) {
   const defs = [
@@ -209,7 +211,7 @@ function renderContactCards(links) {
     { key: 'github',        icon: '⌥',  label: 'GitHub',         valueOf: l => '@' + l.split('/').pop(),   href: l => l },
     { key: 'linkedin',      icon: 'in', label: 'LinkedIn',       valueOf: l => l.split('/').pop(),         href: l => l, iconStyle: 'font-size:13px;font-weight:700;' },
     { key: 'scholar',       icon: '◈',  label: 'Google Scholar', valueOf: () => 'Profile',                 href: l => l },
-    { key: 'twitter',       icon: '𝕏',  label: 'Twitter / X',   valueOf: l => '@' + l.split('/').pop(),   href: l => l },
+    { key: 'twitter',       icon: '𝕏',  label: 'X',   valueOf: l => '@' + l.split('/').pop(),   href: l => l },
     { key: 'personal_blog', icon: '✍',  label: 'Blog',           valueOf: l => l.replace(/^https?:\/\//,''), href: l => l },
   ];
   return defs
@@ -317,8 +319,8 @@ function render(data) {
   <section id="contact">
     <p class="section-label">Get in Touch</p>
     <p style="color:var(--ink-muted);font-size:14px;max-width:460px;margin-bottom:1.8rem;line-height:1.7;">
-      I'm happy to connect with other researchers, discuss ideas, or chat about EECS.
-      Feel free to reach out via any channel below.
+      I'm happy to connect with other researchers, discuss ideas, or chat.
+      Feel free to reach out.
     </p>
     <div class="contact-grid">
       ${renderContactCards(links)}

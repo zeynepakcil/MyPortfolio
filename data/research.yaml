@@ -9,31 +9,31 @@
 #
 #  Tip: 3–4 cards is ideal. Delete entries you don't need.
 
-research_interests:
-  - icon: "⚙️"
-    title: "Computer Architecture"
-    desc: >
-      Hardware-software co-design and domain-specific accelerators.
-      Particularly interested in FPGA-based prototyping for
-      compute-intensive workloads such as genomics and sparse ML.
-
-  - icon: "🔬"
-    title: "Hardware Verification"
-    desc: >
-      Formal and simulation-based verification of RTL designs.
-      Focused on building correct-by-construction pipelines
-      for complex datapaths.
-
-  - icon: "🌐"
-    title: "Network-on-Chip Design"
-    desc: >
-      Scalable interconnect architectures for many-core and
-      chiplet-based systems. Interested in routing algorithms,
-      arbitration, and topology-aware optimization.
-
-  - icon: "📐"
-    title: "Reconfigurable Computing"
-    desc: >
-      Mapping irregular algorithms (graphs, sequences) to
-      fixed FPGA fabrics efficiently. Bridging the gap between
-      high-level algorithm description and low-level implementation.
+research_interests: [] # URGENT TODO title is displayed 
+#  - icon: "⚙️"
+#    title: "Computer Architecture"
+#    desc: >
+#      Hardware-software co-design and domain-specific accelerators.
+#      Particularly interested in FPGA-based prototyping for
+#      compute-intensive workloads such as genomics and sparse ML.
+# 
+#  - icon: "🔬"
+#    title: "Hardware Verification"
+#    desc: >
+#      Formal and simulation-based verification of RTL designs.
+#      Focused on building correct-by-construction pipelines
+#      for complex datapaths.
+# 
+#  - icon: "🌐"
+#    title: "Network-on-Chip Design"
+#    desc: >
+#      Scalable interconnect architectures for many-core and
+#      chiplet-based systems. Interested in routing algorithms,
+#      arbitration, and topology-aware optimization.
+# 
+#  - icon: "📐"
+#    title: "Reconfigurable Computing"
+#    desc: >
+#      Mapping irregular algorithms (graphs, sequences) to
+#      fixed FPGA fabrics efficiently. Bridging the gap between
+#      high-level algorithm description and low-level implementation.
