@@ -26,7 +26,7 @@ education:
     end: "Present"
     advisor: "Prof. Boris Vaisband"
     note: >
-    type: PhD
+    type: phd
 
   - degree: "B.Sc. in Electrical and Electronics Engineering"
     school: "Bilkent University"

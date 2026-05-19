@@ -8,8 +8,8 @@ site:
   base_url: "https://zeynepakcil.github.io"   # used for og:url meta tag
 
 identity:
-  first_name: "Alyssa Zeynep Akcil"
-  last_name: ""
+  first_name: "Alyssa Zeynep"
+  last_name: "Akcil"
   initials: "AZA"                # shown in avatar until you add a photo
   photo: "assets/icon.png"       # set to "" to use initials avatar instead
 
@@ -19,9 +19,7 @@ identity:
   university_url: "https://www.uci.edu"
 
   tagline: >
-    Incoming PhD Student in Electrical Engineering and Computer Science at UC Irvine.
-    
-    I am interested in 3D IC design and working on chiplet-based architectures for heterogeneous integration.
+    Incoming PhD Student in Electrical Engineering and Computer Science at UC Irvine. I am interested in 3D IC design and working on chiplet-based architectures for heterogeneous integration.
 
 links:
   email: "zakcil@uci.edu"
