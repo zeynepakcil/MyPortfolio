@@ -38,13 +38,13 @@ function renderNav(nav) {
 
 function renderHeroButtons(links) {
   const defs = [
-    { key:'email',         label:'✉ Email Me',    href: l=>`mailto:${l}`, primary:true },
-    { key:'cv',            label:'↓ CV / Résumé', href: l=>l },
-    { key:'github',        label:'⌥ GitHub',       href: l=>l },
-    { key:'linkedin',      label:'in LinkedIn',    href: l=>l },
-    { key:'scholar',       label:'◈ Scholar',      href: l=>l },
-    { key:'twitter',       label:'𝕏 Twitter',      href: l=>l },
-    { key:'personal_blog', label:'✍ Blog',          href: l=>l },
+    { key:'email',         label:'Email Me',    href: l=>`mailto:${l}`, primary:true },
+    { key:'cv',            label:'↓ Résumé', href: l=>l },
+    { key:'github',        label:'GitHub',       href: l=>l },
+    { key:'linkedin',      label:'LinkedIn',    href: l=>l },
+    { key:'scholar',       label:'GoogleScholar',      href: l=>l },
+    { key:'twitter',       label:'𝕏',      href: l=>l },
+    { key:'personal_blog', label:'Blog',          href: l=>l },
   ];
   return defs.filter(d => links[d.key]).map(d => {
     const cls = d.primary ? 'btn btn-primary' : 'btn btn-ghost';
