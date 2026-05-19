@@ -303,7 +303,9 @@ section.visible { opacity: 1; transform: none; }
 /* ── CONTACT ──────────────────────────────────────────────── */
 .contact-grid { display: flex; flex-wrap: nowrap; gap: 1rem; }
 .contact-card {
-  flex: 1; min-width: 0;
+  flex: 1;
+}
+.contact-card {
   background: var(--surface); border: 0.5px solid var(--border);
   border-radius: var(--radius); padding: 1.1rem 1.3rem;
   display: flex; align-items: center; gap: 0.9rem;
