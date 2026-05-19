@@ -77,8 +77,8 @@ function renderEducation(education) {
   const icons = { phd: '🎓', masters: '📚', ug: '🏛' };
   return education.map(ed => {
     const schoolEl = ed.school_url
-      ? `<a href="${e(ed.school_url)}" target="_blank" rel="noopener" class="edu-school">${e(ed.school)}, ${e(ed.location)}</a>`
-      : `<p class="edu-school">${e(ed.school)}, ${e(ed.location)}</p>`;
+      ? `<a href="${e(ed.school_url)}" target="_blank" rel="noopener" class="edu-school">${e(ed.school)}</a><span class="edu-location"> · ${e(ed.location)}</span>`
+      : `<p class="edu-school">${e(ed.school)}<span class="edu-location"> · ${e(ed.location)}</span></p>`;
 
     const meta = [`${e(ed.start)} — ${e(ed.end)}`];
     if (ed.advisor) meta.push(`Advisor: ${e(ed.advisor)}`);
