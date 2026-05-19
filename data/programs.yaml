@@ -1,0 +1,33 @@
+# ══════════════════════════════════════════════════════════
+#  programs.yaml
+# ══════════════════════════════════════════════════════════
+#
+#  Fields per entry:
+#    name        (required)  Program / summer school name
+#    host        (required)  Hosting organization
+#    location                City, Country  — omit to hide
+#    year        (required)  e.g. "Summer 2024" or "2023"
+#    url                     Link to program page  — omit to skip
+#    note                    Short note, e.g. "Competitive selection, ~5% acceptance"
+
+programs:
+  - name: "Summer School on [Topic]"
+    host: "Hosted by [Organization]"
+    location: "City, Country"
+    year: "Summer 2024"
+    url: ""
+    note: ""
+
+  - name: "Research Program / Workshop Name"
+    host: "Hosted by [Organization]"
+    location: "City, Country"
+    year: "Summer 2023"
+    url: ""
+    note: "Competitive selection"
+
+  - name: "Hackathon / Competitive Program"
+    host: "[Organization]"
+    location: ""
+    year: "2023"
+    url: ""
+    note: ""

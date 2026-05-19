@@ -1,0 +1,41 @@
+# ══════════════════════════════════════════════════════════
+#  skills.yaml
+# ══════════════════════════════════════════════════════════
+#
+#  Each group has a title and a list of tags.
+#  tag_style: "blue" | "brown" | "green"  (default: "blue")
+#  Add or remove groups freely — the grid auto-flows.
+
+skills:
+  - group: "Hardware & RTL"
+    tag_style: "blue"
+    items:
+      - "SystemVerilog"
+      - "Verilog"
+      - "FPGA"
+      - "Vivado / Vitis"
+      - "Verilator"
+      - "ModelSim"
+
+  - group: "Programming"
+    tag_style: "brown"
+    items:
+      - "C / C++"
+      - "Python"
+      - "MATLAB"
+      - "Bash / Shell"
+
+  - group: "Frameworks & Tools"
+    tag_style: "green"
+    items:
+      - "PyTorch"
+      - "NumPy"
+      - "Git / GitHub"
+      - "Linux"
+      - "Make / CMake"
+
+  - group: "Languages"
+    tag_style: "blue"
+    items:
+      - "English (Fluent)"
+      - "Turkish (Native)"

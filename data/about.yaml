@@ -1,0 +1,47 @@
+# ══════════════════════════════════════════════════════════
+#  about.yaml  —  Identity, hero section, and site metadata
+# ══════════════════════════════════════════════════════════
+
+site:
+  title: "Alyssa Zeynep Akcil"
+  description: "PhD Student at UC Irvine."
+  base_url: "https://zeynepakcil.github.io"   # used for og:url meta tag
+
+identity:
+  first_name: "Alyssa Zeynep Akcil"
+  last_name: ""
+  initials: "AZA"                # shown in avatar until you add a photo
+  photo: "assets/icon.png"       # set to "" to use initials avatar instead
+
+  role: "PhD Student"
+  department: "EECS"
+  university: "UC Irvine"
+  university_url: "https://www.uci.edu"
+
+  tagline: >
+    Incoming PhD Student in Electrical Engineering and Computer Science at UC Irvine.
+    
+    I am interested in 3D IC design and working on chiplet-based architectures for heterogeneous integration.
+
+links:
+  email: "zakcil@uci.edu"
+  cv: "assets/cv.pdf"           # UPDATE TODO
+  github: "https://github.com/zeynepakcil"
+  linkedin: "https://linkedin.com/in/zeynepakcil"
+  scholar: "https://scholar.google.com/citations?user=nhrksO0AAAAJ&hl=en"
+  twitter: ""                   # TODO | set to "" to hide
+  personal_blog: ""             # TODO | set to "" to hide
+
+nav:
+  - label: "Education"
+    href: "#education"
+  - label: "Research"
+    href: "#research"
+  - label: "Experience"
+    href: "#experience"
+  - label: "Programs"
+    href: "#programs"
+  - label: "Skills"
+    href: "#skills"
+  - label: "Contact"
+    href: "#contact"

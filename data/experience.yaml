@@ -1,0 +1,72 @@
+# ══════════════════════════════════════════════════════════
+#  experience.yaml
+# ══════════════════════════════════════════════════════════
+#
+#  Fields per entry:
+#    period      (required)  Short label, e.g. "Summer 2024" or "Fall 2024"
+#    role        (required)  Job / position title
+#    org         (required)  Organization or lab name
+#    location                City, Country
+#    org_url                 Link to org — omit to skip hyperlinking
+#    desc        (required)  2–3 sentence description
+#    tags                    List of skill/tool tags
+#    tag_style               "blue" (default) | "brown" | "green"
+#                            You can mix per-tag: see tag_style field on each tag item
+#
+#  Tag format (simple):
+#    tags: ["SystemVerilog", "FPGA"]
+#
+#  Tag format (with per-tag style):
+#    tags:
+#      - label: "SystemVerilog"
+#        style: "blue"
+#      - label: "C++"
+#        style: "brown"
+
+experience:
+  - period: "2024-2026"
+    role: "Undergraduate Researcher"
+    org: "AlkanLab, Bilkent University"
+    location: "Ankara, Turkey"
+    org_url: "https://www.alkanlab.org"
+    desc: >
+      Worked with Prof. Can Alkan.
+      Benchmarking in scope of EU Project BioPIM.
+      Initiated POACHA: Partial Order Alignment Computation Hardware Acceleration.
+    tags:
+      - label: "Research"
+        style: "blue"
+      - label: "RTL Design"
+        style: "blue"
+
+  - period: "Summer 2025"
+    role: "Summer Intern"
+    org: "Turkish Aeropace Industries"
+    location: "Ankara, Turkey"
+    org_url: "https://www.tusas.com/en"
+    desc: >
+      Benchmarking YOLO-based small-object detection models for UAV use cases and deploying them on embedded edge-AI platforms including NVIDIA Jetson Orin and Xilinx UltraScale+ MPSoC boards.
+    tags:
+      - label: "SystemVerilog"
+        style: "blue"
+      - label: "FPGA"
+        style: "blue"
+      - label: "C++"
+        style: "brown"
+
+  - period: "Summer 2023"
+    role: "Summer Researcher"
+    org: "ETH Zurich Integrated Systems Laboratory"
+    location: "Zurich, Switzerland"
+    org_url: "https://www.iis.ee.ethz.ch"
+    desc: >
+      Trained and optimized CNN and Vision Transformer models on multimodal skin cancer data, applying pruning and quantization for efficient deployment on the RISC-V–based GAP9 edge-AI platform.
+    tags:
+      - label: "Python"
+        style: "blue"
+      - label: "Machine Learning"
+        style: "brown"
+      - label: "PyTorch"
+        style: "green"
+
+

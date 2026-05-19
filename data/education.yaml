@@ -1,0 +1,47 @@
+# ══════════════════════════════════════════════════════════
+#  education.yaml
+# ══════════════════════════════════════════════════════════
+#
+#  Fields per entry:
+#    degree       (required)  Full degree title
+#    school       (required)  Institution name
+#    location     (required)  City, Country / State
+#    school_url              Link to department/school page
+#    start        (required)  e.g. "Sep 2021"
+#    end          (required)  e.g. "Jun 2025"  |  "Present"
+#    gpa                     e.g. "3.9 / 4.0"  — omit to hide
+#    honors                  e.g. "High Distinction"  — omit to hide
+#    advisor                 Advisor name  — omit to hide
+#    thesis                  Thesis title (italicised)  — omit to hide
+#    note                    Free-text note shown in the blue callout box
+#    type         (required)  "phd" | "masters" | "ug"   (controls icon + dot color)
+#    coursework              List of notable courses — omit to hide
+
+education:
+  - degree: "Ph.D. in Electrical Engineering and Computer Science"
+    school: "UC Irvine"
+    location: "Irvine, CA"
+    school_url: "https://engineering.uci.edu/dept/eecs"
+    start: "Sept 2026"
+    end: "Present"
+    advisor: "Prof. Boris Vaisband"
+    note: >
+    type: PhD
+
+  - degree: "B.Sc. in Electrical and Electronics Engineering"
+    school: "Bilkent University"
+    location: "Ankara, Turkey"
+    school_url: "https://www.bilkent.edu.tr"
+    start: "Sep 2021"
+    end: "Jan 2026"
+    gpa: "3.58"
+    # honors: "High Distinction"
+    # thesis: "Your Thesis Title Here"
+    # advisor: "Prof. [Name]"
+    coursework:
+      - "Digital Design"
+      - "Computer Architecture"
+      - "Algorithms"
+      - "Operating Systems"
+      - "VLSI Design"
+    type: ug

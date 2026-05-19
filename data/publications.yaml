@@ -1,0 +1,36 @@
+# ══════════════════════════════════════════════════════════
+#  publications.yaml
+# ══════════════════════════════════════════════════════════
+#
+#  Leave `publications` as an empty list [] to hide the section entirely.
+#
+#  Fields per entry:
+#    year        (required)
+#    title       (required)
+#    venue       (required)  Conference or journal name
+#    venue_short             Abbreviation, e.g. "ISCA '25"
+#    authors     (required)  List of author names; use "**Your Name**" to bold yours
+#    links                   List of {label, url} pairs (arXiv, PDF, Code, etc.)
+#    note                    e.g. "Best Paper Award"  — omit to hide
+
+publications: []
+
+# ── Example entry (uncomment when you have a paper) ──────
+#
+# publications:
+#   - year: 2025
+#     title: "Your Paper Title Here"
+#     venue: "International Symposium on Computer Architecture"
+#     venue_short: "ISCA '25"
+#     authors:
+#       - "**Your Name**"
+#       - "Co-Author One"
+#       - "Prof. Advisor Name"
+#     links:
+#       - label: "arXiv"
+#         url: "https://arxiv.org/abs/XXXX.XXXXX"
+#       - label: "PDF"
+#         url: "assets/papers/yourpaper25.pdf"
+#       - label: "Code"
+#         url: "https://github.com/yourhandle/repo"
+#     note: ""
