@@ -138,6 +138,31 @@ function renderExperience(experience) {
   }).join('\n');
 }
 
+
+function renderProjects(projects) {
+  return projects.map(p => {
+    const links = p.links?.length
+      ? `<div class="exp-tags">${p.links.map(l =>
+          `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`
+        ).join(' ')}</div>` : '';
+    const tags = p.tags?.length
+      ? `<div class="exp-tags">${p.tags.map(renderTag).join(' ')}</div>` : '';
+    const accent = p.highlight
+      ? 'border-left: 3px solid var(--accent); padding-left: 1.1rem;'
+      : '';
+
+    return `
+      <div class="exp-item" style="${accent}">
+        <p class="exp-period">${e(p.period).replace(' – ', '<br>').replace(' - ', '<br>')}</p>
+        <div class="exp-body">
+          <p class="exp-role">${e(p.title)}</p>
+          <p class="exp-desc">${e(p.desc)}</p>
+          ${tags}${links}
+        </div>
+      </div>`;
+  }).join('\n');
+}
+
 function renderPrograms(programs) {
   return programs.map(p => {
     const nameEl = p.url
@@ -234,7 +259,7 @@ function renderContactCards(links) {
 function render(data) {
   const { site, identity, links, nav,
           education, research_interests,
-          experience, programs, skills, publications } = data;
+          experience, projects, programs, skills, publications } = data;
 
   const fullName  = `${identity.first_name} ${identity.last_name}`;
   const univEl    = identity.university_url
@@ -301,6 +326,14 @@ function render(data) {
       ${renderExperience(experience)}
     </div>
   </section>` : ''}
+
+  \${projects && projects.length ? \`
+  <section id="projects">
+    <p class="section-label">Projects</p>
+    <div class="exp-list">
+      \${renderProjects(projects)}
+    </div>
+  </section>\` : ''}
 
   ${programs && programs.length ? `
   <section id="programs">
