@@ -1,34 +1,27 @@
 #!/usr/bin/env node
 // ============================================================
 //  scripts/build.js
-//  Reads all YAML data files → renders dist/index.html
-//
-//  npm run build        one-time build
-//  npm run watch        rebuild on every data/*.yaml change
+//  npm run build   — one-time build → dist/index.html
+//  npm run watch   — rebuild on data/*.yaml change
 // ============================================================
 
 const fs   = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 
-// ── Load all data/*.yaml files into one flat object ──────────
 function loadData() {
   const dataDir = path.join(__dirname, '..', 'data');
-  const data    = {};
+  const data = {};
   for (const file of fs.readdirSync(dataDir).sort()) {
     if (!/\.ya?ml$/.test(file)) continue;
-    const raw = fs.readFileSync(path.join(dataDir, file), 'utf8');
-    Object.assign(data, yaml.load(raw));
+    Object.assign(data, yaml.load(fs.readFileSync(path.join(dataDir, file), 'utf8')));
   }
   return data;
 }
 
-// ── HTML escape ───────────────────────────────────────────────
 const e = s => String(s ?? '')
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
-// ── Tag rendering ─────────────────────────────────────────────
 function tagClass(style) {
   if (style === 'brown') return 'tag alt';
   if (style === 'green') return 'tag green';
@@ -39,31 +32,25 @@ function renderTag(t) {
   return `<span class="${tagClass(t.style)}">${e(t.label)}</span>`;
 }
 
-// ── Section renderers ─────────────────────────────────────────
-
 function renderNav(nav) {
-  return nav.map(n =>
-    `<li><a href="${e(n.href)}">${e(n.label)}</a></li>`
-  ).join('\n    ');
+  return nav.map(n => `<li><a href="${e(n.href)}">${e(n.label)}</a></li>`).join('\n    ');
 }
 
 function renderHeroButtons(links) {
   const defs = [
-    { key: 'email',         label: 'Email Me',     href: l => `mailto:${l}`, primary: true },
-    { key: 'cv',            label: '↓ Résumé',  href: l => l },
-    { key: 'github',        label: 'GitHub',        href: l => l },
-    { key: 'linkedin',      label: 'LinkedIn',     href: l => l },
-    { key: 'scholar',       label: 'GoogleScholar',       href: l => l },
-    { key: 'twitter',       label: '𝕏',       href: l => l },
-    { key: 'personal_blog', label: 'Blog',           href: l => l },
+    { key:'email',         label:'✉ Email Me',    href: l=>`mailto:${l}`, primary:true },
+    { key:'cv',            label:'↓ CV / Résumé', href: l=>l },
+    { key:'github',        label:'⌥ GitHub',       href: l=>l },
+    { key:'linkedin',      label:'in LinkedIn',    href: l=>l },
+    { key:'scholar',       label:'◈ Scholar',      href: l=>l },
+    { key:'twitter',       label:'𝕏 Twitter',      href: l=>l },
+    { key:'personal_blog', label:'✍ Blog',          href: l=>l },
   ];
-  return defs
-    .filter(d => links[d.key])
-    .map(d => {
-      const cls = d.primary ? 'btn btn-primary' : 'btn btn-ghost';
-      const ext = d.key !== 'email' ? ' target="_blank" rel="noopener"' : '';
-      return `<a href="${e(d.href(links[d.key]))}" class="${cls}"${ext}>${d.label}</a>`;
-    }).join('\n        ');
+  return defs.filter(d => links[d.key]).map(d => {
+    const cls = d.primary ? 'btn btn-primary' : 'btn btn-ghost';
+    const ext = d.key !== 'email' ? ' target="_blank" rel="noopener"' : '';
+    return `<a href="${e(d.href(links[d.key]))}" class="${cls}"${ext}>${d.label}</a>`;
+  }).join('\n        ');
 }
 
 function renderAvatar(identity) {
@@ -74,24 +61,19 @@ function renderAvatar(identity) {
 }
 
 function renderEducation(education) {
-  const icons = { phd: '🎓', masters: '📚', ug: '🏛' };
+  const icons = { phd:'🎓', masters:'📚', ug:'🏛' };
   return education.map(ed => {
     const schoolEl = ed.school_url
       ? `<a href="${e(ed.school_url)}" target="_blank" rel="noopener" class="edu-school">${e(ed.school)}</a><span class="edu-location"> · ${e(ed.location)}</span>`
       : `<p class="edu-school">${e(ed.school)}<span class="edu-location"> · ${e(ed.location)}</span></p>`;
-
     const meta = [`${e(ed.start)} — ${e(ed.end)}`];
     if (ed.advisor) meta.push(`Advisor: ${e(ed.advisor)}`);
     if (ed.gpa)     meta.push(`GPA: ${e(ed.gpa)}`);
     if (ed.honors)  meta.push(e(ed.honors));
-
     let note = '';
-    if (ed.thesis)          note += `Thesis: <em>${e(ed.thesis)}</em>.<br>`;
-    if (ed.note)            note += e(ed.note);
-    if (ed.coursework?.length) {
-      note += `${note ? '<br>' : ''}Relevant coursework: ${ed.coursework.map(e).join(', ')}.`;
-    }
-
+    if (ed.thesis)           note += `Thesis: <em>${e(ed.thesis)}</em>.<br>`;
+    if (ed.note)             note += e(ed.note);
+    if (ed.coursework?.length) note += `${note ? '<br>' : ''}Relevant coursework: ${ed.coursework.map(e).join(', ')}.`;
     return `
       <div class="edu-card">
         <div class="edu-dot ${e(ed.type)}">${icons[ed.type] ?? '🏛'}</div>
@@ -106,8 +88,6 @@ function renderEducation(education) {
 }
 
 function renderResearch(interests) {
-  if (!interests?.length) return '';
-
   return interests.map(r => `
       <div class="interest-card">
         <div class="interest-icon">${e(r.icon)}</div>
@@ -119,12 +99,10 @@ function renderResearch(interests) {
 function renderExperience(experience) {
   return experience.map(ex => {
     const period = e(ex.period).replace(' ', '<br>');
-    const orgEl  = ex.org_url
+    const orgEl = ex.org_url
       ? `<a href="${e(ex.org_url)}" target="_blank" rel="noopener" class="exp-org">${e(ex.org)}${ex.location ? ' &nbsp;·&nbsp; ' + e(ex.location) : ''}</a>`
       : `<p class="exp-org">${e(ex.org)}${ex.location ? ' &nbsp;·&nbsp; ' + e(ex.location) : ''}</p>`;
-    const tags = ex.tags?.length
-      ? `<div class="exp-tags">${ex.tags.map(renderTag).join(' ')}</div>` : '';
-
+    const tags = ex.tags?.length ? `<div class="exp-tags">${ex.tags.map(renderTag).join(' ')}</div>` : '';
     return `
       <div class="exp-item">
         <p class="exp-period">${period}</p>
@@ -138,22 +116,15 @@ function renderExperience(experience) {
   }).join('\n');
 }
 
-
 function renderProjects(projects) {
   return projects.map(p => {
-    const links = p.links?.length
-      ? `<div class="exp-tags">${p.links.map(l =>
-          `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`
-        ).join(' ')}</div>` : '';
-    const tags = p.tags?.length
-      ? `<div class="exp-tags">${p.tags.map(renderTag).join(' ')}</div>` : '';
-    const accent = p.highlight
-      ? 'border-left: 3px solid var(--accent); padding-left: 1.1rem;'
-      : '';
-
+    const tags  = p.tags?.length  ? `<div class="exp-tags">${p.tags.map(renderTag).join(' ')}</div>` : '';
+    const links = p.links?.length ? `<div class="exp-tags">${p.links.map(l =>
+      `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`).join(' ')}</div>` : '';
+    const accent = p.highlight ? 'border-left: 3px solid var(--accent); padding-left: 1.1rem;' : '';
     return `
       <div class="exp-item" style="${accent}">
-        <p class="exp-period">${e(p.period).replace(' – ', '<br>').replace(' - ', '<br>')}</p>
+        <p class="exp-period">${e(p.period).replace(' – ','<br>').replace(' - ','<br>')}</p>
         <div class="exp-body">
           <p class="exp-role">${e(p.title)}</p>
           <p class="exp-desc">${e(p.desc)}</p>
@@ -170,14 +141,9 @@ function renderPrograms(programs) {
       : `<p class="program-name">${e(p.name)}</p>`;
     const host = [e(p.host), p.location ? e(p.location) : ''].filter(Boolean).join(' &nbsp;·&nbsp; ');
     const badge = p.note ? `<span class="tag green" style="font-size:10.5px;margin-top:4px;display:inline-block;">${e(p.note)}</span>` : '';
-
     return `
       <div class="program-item">
-        <div>
-          ${nameEl}
-          <p class="program-host">${host}</p>
-          ${badge}
-        </div>
+        <div>${nameEl}<p class="program-host">${host}</p>${badge}</div>
         <span class="program-year">${e(p.year)}</span>
       </div>`;
   }).join('\n');
@@ -195,20 +161,14 @@ function renderSkills(skills) {
 
 function renderPublications(publications) {
   if (!publications?.length) return '';
-
   const items = publications.map(p => {
     const authors = (p.authors ?? []).map(a => {
       const bold = a.startsWith('**') && a.endsWith('**');
       return bold ? `<strong>${e(a.slice(2,-2))}</strong>` : e(a);
     }).join(', ');
-
-    const links = p.links?.length
-      ? `<div class="exp-tags">${p.links.map(l =>
-          `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`
-        ).join(' ')}</div>` : '';
-
+    const links = p.links?.length ? `<div class="exp-tags">${p.links.map(l =>
+      `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`).join(' ')}</div>` : '';
     const note = p.note ? `<span class="tag green">${e(p.note)}</span> ` : '';
-
     return `
       <div class="exp-item">
         <p class="exp-period">${e(p.year)}</p>
@@ -220,31 +180,26 @@ function renderPublications(publications) {
         </div>
       </div>`;
   }).join('\n');
-
   return `
   <section id="publications">
     <p class="section-label">Publications</p>
-    <div class="exp-list">
-      ${items}
-    </div>
+    <div class="exp-list">${items}</div>
   </section>`;
 }
 
 function renderContactCards(links) {
   const defs = [
-    { key: 'email',         icon: '✉',  label: 'Email',          valueOf: l => l,                          href: l => `mailto:${l}` },
-    { key: 'github',        icon: '⌥',  label: 'GitHub',         valueOf: l => '@' + l.split('/').pop(),   href: l => l },
-    { key: 'linkedin',      icon: 'in', label: 'LinkedIn',       valueOf: l => l.split('/').pop(),         href: l => l, iconStyle: 'font-size:13px;font-weight:700;' },
-    { key: 'scholar',       icon: '◈',  label: 'Google Scholar', valueOf: () => 'Profile',                 href: l => l },
-    { key: 'twitter',       icon: '𝕏',  label: 'X',   valueOf: l => '@' + l.split('/').pop(),   href: l => l },
-    { key: 'personal_blog', icon: '✍',  label: 'Blog',           valueOf: l => l.replace(/^https?:\/\//,''), href: l => l },
+    { key:'email',         icon:'✉',  label:'Email',          valueOf: l=>l,                        href: l=>`mailto:${l}` },
+    { key:'github',        icon:'⌥',  label:'GitHub',         valueOf: l=>'@'+l.split('/').pop(),   href: l=>l },
+    { key:'linkedin',      icon:'in', label:'LinkedIn',       valueOf: l=>l.split('/').pop(),       href: l=>l, iconStyle:'font-size:13px;font-weight:700;' },
+    { key:'scholar',       icon:'◈',  label:'Google Scholar', valueOf: ()=>'Profile',               href: l=>l },
+    { key:'twitter',       icon:'𝕏',  label:'Twitter / X',   valueOf: l=>'@'+l.split('/').pop(),   href: l=>l },
+    { key:'personal_blog', icon:'✍',  label:'Blog',           valueOf: l=>l.replace(/^https?:\/\//,''), href: l=>l },
   ];
-  return defs
-    .filter(d => links[d.key])
-    .map(d => {
-      const external = d.key !== 'email' ? ' target="_blank" rel="noopener"' : '';
-      const iconStyle = d.iconStyle ? ` style="${d.iconStyle}"` : '';
-      return `
+  return defs.filter(d => links[d.key]).map(d => {
+    const external = d.key !== 'email' ? ' target="_blank" rel="noopener"' : '';
+    const iconStyle = d.iconStyle ? ` style="${d.iconStyle}"` : '';
+    return `
       <a href="${e(d.href(links[d.key]))}" class="contact-card"${external}>
         <div class="contact-icon"${iconStyle}>${d.icon}</div>
         <div>
@@ -252,24 +207,55 @@ function renderContactCards(links) {
           <p class="contact-value">${e(d.valueOf(links[d.key]))}</p>
         </div>
       </a>`;
-    }).join('\n');
+  }).join('\n');
 }
 
 // ── Main HTML template ────────────────────────────────────────
 function render(data) {
   const { site, identity, links, nav,
           education, research_interests,
-          experience, projects, programs, skills, publications } = data;
+          experience, projects, programs,
+          skills, publications } = data;
 
-  const fullName  = `${identity.first_name} ${identity.last_name}`;
-  const univEl    = identity.university_url
+  const fullName = `${identity.first_name} ${identity.last_name}`;
+  const univEl   = identity.university_url
     ? `<a href="${e(identity.university_url)}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${e(identity.university)}</a>`
     : e(identity.university);
 
-  const pubSection = renderPublications(publications);
+  const researchSection = research_interests?.length ? `
+  <section id="research">
+    <p class="section-label">Research Interests</p>
+    <div class="interests-grid">
+      ${renderResearch(research_interests)}
+    </div>
+  </section>` : '';
+
+  const experienceSection = experience?.length ? `
+  <section id="experience">
+    <p class="section-label">Research &amp; Industry Experience</p>
+    <div class="exp-list">
+      ${renderExperience(experience)}
+    </div>
+  </section>` : '';
+
+  const projectsSection = projects?.length ? `
+  <section id="projects">
+    <p class="section-label">Projects</p>
+    <div class="exp-list">
+      ${renderProjects(projects)}
+    </div>
+  </section>` : '';
+
+  const programsSection = programs?.length ? `
+  <section id="programs">
+    <p class="section-label">Programs &amp; Summer Schools</p>
+    <div class="programs-list">
+      ${renderPrograms(programs)}
+    </div>
+  </section>` : '';
 
   return `<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -282,11 +268,16 @@ function render(data) {
 </head>
 <body>
 
+<canvas id="bg-canvas"></canvas>
+
 <nav>
   <a href="#" class="nav-logo">${e(identity.initials)}.</a>
   <ul class="nav-links">
     ${renderNav(nav)}
   </ul>
+  <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+    <span class="theme-icon">🌙</span>
+  </button>
 </nav>
 
 <main>
@@ -295,7 +286,7 @@ function render(data) {
   <div class="hero">
     <div>
       <p class="hero-eyebrow">${e(identity.role)} · ${e(identity.department)} · ${univEl}</p>
-      <h1 class="hero-name">${e(identity.first_name)}<br><em>${e(identity.last_name)}</em></h1>
+      <h1 class="hero-name">${e(identity.first_name)} <em>${e(identity.last_name)}</em></h1>
       <p class="hero-tagline">${e(identity.tagline)}</p>
       <div class="hero-links">
         ${renderHeroButtons(links)}
@@ -311,39 +302,11 @@ function render(data) {
     </div>
   </section>
 
-  ${research_interests && research_interests.length ? `
-  <section id="research">
-    <p class="section-label">Research Interests</p>
-    <div class="interests-grid">
-      ${renderResearch(research_interests)}
-    </div>
-  </section>` : ''}
-
-  ${experience && experience.length ? `
-  <section id="experience">
-    <p class="section-label">Research &amp; Industry Experience</p>
-    <div class="exp-list">
-      ${renderExperience(experience)}
-    </div>
-  </section>` : ''}
-
-  \${projects && projects.length ? \`
-  <section id="projects">
-    <p class="section-label">Projects</p>
-    <div class="exp-list">
-      \${renderProjects(projects)}
-    </div>
-  </section>\` : ''}
-
-  ${programs && programs.length ? `
-  <section id="programs">
-    <p class="section-label">Programs &amp; Summer Schools</p>
-    <div class="programs-list">
-      ${renderPrograms(programs)}
-    </div>
-  </section>` : ''}
-
-  ${pubSection}
+  ${researchSection}
+  ${experienceSection}
+  ${projectsSection}
+  ${programsSection}
+  ${renderPublications(publications)}
 
   <section id="skills">
     <p class="section-label">Skills &amp; Tools</p>
@@ -355,8 +318,8 @@ function render(data) {
   <section id="contact">
     <p class="section-label">Get in Touch</p>
     <p style="color:var(--ink-muted);font-size:14px;max-width:600px;margin-bottom:1.8rem;line-height:1.7;">
-      I'm happy to connect with other researchers, discuss ideas, or chat.
-      Feel free to reach out.
+      I'm happy to connect with other researchers, discuss ideas, or chat about EECS.
+      Feel free to reach out via any channel below.
     </p>
     <div class="contact-grid">
       ${renderContactCards(links)}
@@ -380,7 +343,6 @@ function build() {
   const distDir = path.join(__dirname, '..', 'dist');
   if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
 
-  // Copy static assets into dist/
   const statics = ['css', 'js', 'assets'];
   for (const dir of statics) {
     const src = path.join(__dirname, '..', dir);
@@ -393,14 +355,12 @@ function build() {
     }
   }
 
-  const data    = loadData();
-  const html    = render(data);
-  const outPath = path.join(distDir, 'index.html');
-  fs.writeFileSync(outPath, html, 'utf8');
+  const data = loadData();
+  const html = render(data);
+  fs.writeFileSync(path.join(distDir, 'index.html'), html, 'utf8');
   console.log(`✓  Built → dist/index.html  (${(html.length / 1024).toFixed(1)} KB)  [${new Date().toLocaleTimeString()}]`);
 }
 
-// ── Watch mode ────────────────────────────────────────────────
 if (process.argv.includes('--watch')) {
   const watchDir = path.join(__dirname, '..', 'data');
   console.log('👁  Watching data/ for changes… (Ctrl+C to stop)\n');
