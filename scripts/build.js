@@ -286,26 +286,29 @@ function render(data) {
     </div>
   </section>
 
+  ${research_interests && research_interests.length ? `
   <section id="research">
     <p class="section-label">Research Interests</p>
     <div class="interests-grid">
       ${renderResearch(research_interests)}
     </div>
-  </section>
+  </section>` : ''}
 
+  ${experience && experience.length ? `
   <section id="experience">
     <p class="section-label">Research &amp; Industry Experience</p>
     <div class="exp-list">
       ${renderExperience(experience)}
     </div>
-  </section>
+  </section>` : ''}
 
+  ${programs && programs.length ? `
   <section id="programs">
     <p class="section-label">Programs &amp; Summer Schools</p>
     <div class="programs-list">
       ${renderPrograms(programs)}
     </div>
-  </section>
+  </section>` : ''}
 
   ${pubSection}
 
@@ -318,7 +321,7 @@ function render(data) {
 
   <section id="contact">
     <p class="section-label">Get in Touch</p>
-    <p style="color:var(--ink-muted);font-size:14px;max-width:460px;margin-bottom:1.8rem;line-height:1.7;">
+    <p style="color:var(--ink-muted);font-size:14px;max-width:600px;margin-bottom:1.8rem;line-height:1.7;">
       I'm happy to connect with other researchers, discuss ideas, or chat.
       Feel free to reach out.
     </p>

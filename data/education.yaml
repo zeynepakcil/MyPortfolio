@@ -39,9 +39,4 @@ education:
     # thesis: "Your Thesis Title Here"
     # advisor: "Prof. [Name]"
     coursework:
-      - "Digital Design"
-      - "Computer Architecture"
-      - "Algorithms"
-      - "Operating Systems"
-      - "VLSI Design"
     type: ug
