@@ -197,11 +197,9 @@ main {
 section {
   padding: 4rem 0;
   border-bottom: 0.5px solid var(--border);
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 0.5s, transform 0.5s;
+  opacity: 1; transform: none;
   position: relative; z-index: 1;
 }
-section.visible { opacity: 1; transform: none; }
 .section-label {
   font-family: var(--mono); font-size: 10.5px;
   letter-spacing: 0.14em; text-transform: uppercase;
