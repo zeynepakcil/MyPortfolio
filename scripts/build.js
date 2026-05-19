@@ -166,42 +166,42 @@ function renderSkills(skills) {
       </div>`).join('\n');
 }
 
-function renderPublications(publications) {
-  if (!publications?.length) return '';
-
-  const items = publications.map(p => {
-    const authors = (p.authors ?? []).map(a => {
-      const bold = a.startsWith('**') && a.endsWith('**');
-      return bold ? `<strong>${e(a.slice(2,-2))}</strong>` : e(a);
-    }).join(', ');
-
-    const links = p.links?.length
-      ? `<div class="exp-tags">${p.links.map(l =>
-          `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`
-        ).join(' ')}</div>` : '';
-
-    const note = p.note ? `<span class="tag green">${e(p.note)}</span> ` : '';
-
-    return `
-      <div class="exp-item">
-        <p class="exp-period">${e(p.year)}</p>
-        <div class="exp-body">
-          <p class="exp-role">${e(p.title)}</p>
-          <p class="exp-org">${e(p.venue)}${p.venue_short ? ' &nbsp;·&nbsp; ' + e(p.venue_short) : ''}</p>
-          <p class="exp-desc" style="font-size:13px;">${authors}</p>
-          ${note}${links}
-        </div>
-      </div>`;
-  }).join('\n');
-
-  return `
-  <section id="publications">
-    <p class="section-label">Publications</p>
-    <div class="exp-list">
-      ${items}
-    </div>
-  </section>`;
-}
+// function renderPublications(publications) {
+//   if (!publications?.length) return '';
+// 
+//   const items = publications.map(p => {
+//     const authors = (p.authors ?? []).map(a => {
+//       const bold = a.startsWith('**') && a.endsWith('**');
+//       return bold ? `<strong>${e(a.slice(2,-2))}</strong>` : e(a);
+//     }).join(', ');
+// 
+//     const links = p.links?.length
+//       ? `<div class="exp-tags">${p.links.map(l =>
+//           `<a href="${e(l.url)}" class="tag" target="_blank" rel="noopener">${e(l.label)}</a>`
+//         ).join(' ')}</div>` : '';
+// 
+//     const note = p.note ? `<span class="tag green">${e(p.note)}</span> ` : '';
+// 
+//     return `
+//       <div class="exp-item">
+//         <p class="exp-period">${e(p.year)}</p>
+//         <div class="exp-body">
+//           <p class="exp-role">${e(p.title)}</p>
+//           <p class="exp-org">${e(p.venue)}${p.venue_short ? ' &nbsp;·&nbsp; ' + e(p.venue_short) : ''}</p>
+//           <p class="exp-desc" style="font-size:13px;">${authors}</p>
+//           ${note}${links}
+//         </div>
+//       </div>`;
+//   }).join('\n');
+// 
+//   return `
+//   <section id="publications">
+//     <p class="section-label">Publications</p>
+//     <div class="exp-list">
+//       ${items}
+//     </div>
+//   </section>`;
+// }
 
 function renderContactCards(links) {
   const defs = [
