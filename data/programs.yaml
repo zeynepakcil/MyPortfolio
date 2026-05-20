@@ -1,33 +1,28 @@
 # ══════════════════════════════════════════════════════════
 #  programs.yaml
 # ══════════════════════════════════════════════════════════
-#
-#  Fields per entry:
-#    name        (required)  Program / summer school name
-#    host        (required)  Hosting organization
-#    location                City, Country  — omit to hide
-#    year        (required)  e.g. "Summer 2024" or "2023"
-#    url                     Link to program page  — omit to skip
-#    note                    Short note, e.g. "Competitive selection, ~5% acceptance"
 
 programs:
   - name: "CGSI 2025"
-    host: "Hosted by [Organization]"
+    host: "Hosted by UCLA"
     location: "Los Angeles, CA"
     year: "Summer 2025"
-    url: "http://computationalgenomics.bioinformatics.ucla.edu"
-    note: "Computational Genomics Summer Institute (CGSI) is a summer program in computational biology."
+    url: ""
+    note: "Competitive selection"
+    desc: "Computational Genomics Summer Institute. Accepted to long program on-site; presented ongoing POACHA project."
 
   - name: "EFCL Summer School 2024"
     host: "ETH Future Computing Lab (EFCL)"
     location: "Zurich, Switzerland"
     year: "Summer 2024"
-    url: "https://efcl.ethz.ch/events/efcl-summer---winter-schools/efcl-summer-school.html"
-    note: "Summer School on Open Source IC Design and Computer Architectures."
+    url: ""
+    note: "24 participants"
+    desc: "Summer School on Open Source IC Design and Computer Architectures. Track 3: Embedded AI for biosignal processing on GAP9."
 
   - name: "XPONENTIAL 2024"
     host: "Association for Uncrewed Vehicle Systems International (AUVSI)"
     location: "San Diego, CA"
     year: "2024"
-    url: "https://xponential.org"
+    url: ""
     note: ""
+    desc: ""
